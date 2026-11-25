@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { submitToFormSubmit } from "@/lib/formSubmit";
+import { toast } from "sonner";
 import { 
   MessageCircle, 
   Linkedin, 
@@ -16,6 +18,19 @@ import {
 
 const ContactSection = () => {
   const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+
+    try {
+      await submitToFormSubmit(new FormData(event.currentTarget));
+      window.location.assign("https://jetmerce.github.io/thank-you/");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "The form could not be sent. Please try again.", { duration: 10000 });
+      setLoading(false);
+    }
+  };
 
   const socials = [
     { name: "WhatsApp", icon: <MessageCircle />, href: "https://wa.me/2349162758597?text=Hello%20Jetmerce%2C%20I%27m%20messaging%20because%E2%80%A6", color: "hover:text-[#25D366]" },
@@ -81,10 +96,9 @@ const ContactSection = () => {
 
           <div className="relative">
             <div className="absolute -inset-4 bg-primary/5 blur-3xl rounded-full -z-10" />
-            <form action="https://formsubmit.co/jetmerceofficial@gmail.com" method="POST" onSubmit={() => setLoading(true)} className="bg-background border border-border/50 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl space-y-6 md:space-y-8 relative">
+            <form action="https://formsubmit.co/jetmerceofficial@gmail.com" method="POST" onSubmit={handleSubmit} className="bg-background border border-border/50 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl space-y-6 md:space-y-8 relative">
               <input type="hidden" name="_next" value="https://jetmerce.github.io/thank-you/" />
               <input type="hidden" name="_subject" value="Your Enquiry Has Been Received Successfully" />
-              <input type="hidden" name="_autoresponse" value="Hello, your enquiry has been received successfully.&#10;&#10;I will personally review the information you submitted, along with your website and online presence, and get back to you shortly with my observations and recommendations.&#10;&#10;If there is anything specific you would like me to pay particular attention to during my review, simply reply to this email. If replying is unavailable, please contact me directly at:&#10;&#10;jetmerceofficial@gmail.com&#10;&#10;Thank you for reaching out. I look forward to learning more about your business.&#10;&#10;Kind regards,&#10;&#10;Joshua&#10;JETMERCE" />
               <input type="hidden" name="_template" value="table" />
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">

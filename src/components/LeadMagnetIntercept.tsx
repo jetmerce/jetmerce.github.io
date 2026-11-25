@@ -4,19 +4,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { submitToFormSubmit } from "@/lib/formSubmit";
 
 interface LeadMagnetInterceptProps {
   children: React.ReactNode;
   externalLink?: string;
 }
 
-const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/jetmerceofficial@gmail.com";
 const THANK_YOU_URL = "https://jetmerce.github.io/thank-you/";
 
 export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterceptProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const successDestination = externalLink || THANK_YOU_URL;
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setSubmitError("");
+
+    try {
+      await submitToFormSubmit(new FormData(event.currentTarget));
+      window.location.assign(successDestination);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "The form could not be sent. Please try again.");
+      setIsLoading(false);
+    }
+  };
 
   const handleWhatsApp = () => {
     window.open("https://wa.me/2349162758597?text=Hello%20Jetmerce%2C%20I%27m%20messaging%20because%E2%80%A6", "_blank", "noopener,noreferrer");
@@ -43,14 +58,13 @@ export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterc
             </Button>
           </div>
           <form
-            action={FORMSUBMIT_ENDPOINT}
+            action="https://formsubmit.co/jetmerceofficial@gmail.com"
             method="POST"
-            onSubmit={() => setIsLoading(true)}
+            onSubmit={handleSubmit}
             className="space-y-4"
           >
-            <input type="hidden" name="_next" value={successDestination} />
             <input type="hidden" name="_subject" value="Your Enquiry Has Been Received Successfully" />
-            <input type="hidden" name="_autoresponse" value="Hello, your enquiry has been received successfully.\n\nI will personally review the information you submitted, along with your website and online presence, and get back to you shortly with my observations and recommendations.\n\nIf there is anything specific you would like me to pay particular attention to during my review, simply reply to this email. If replying is unavailable, please contact me directly at:\n\njetmerceofficial@gmail.com\n\nThank you for reaching out. I look forward to learning more about your business.\n\nKind regards,\n\nJoshua\nJETMERCE" />
+            <input type="hidden" name="_next" value={successDestination} />
             <input type="hidden" name="_template" value="table" />
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
@@ -69,10 +83,11 @@ export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterc
               <Textarea id="message" name="Message" placeholder="What do you need help with?" required />
             </div>
             <Button type="submit" disabled={isLoading} className="w-full h-12 text-lg">
-              {isLoading ? "Sending and opening your link…" : "Submit & Continue"}
+              {isLoading ? "Sending…" : "Submit & Continue"}
             </Button>
+            {submitError && <p role="alert" className="text-sm text-destructive text-center">{submitError}</p>}
             <p className="text-xs text-center text-muted-foreground mt-2">
-              After a successful submission, you will continue to the page you selected.
+              After FormSubmit confirms your submission, you will continue to the page you selected.
             </p>
             <p className="text-xs text-center text-muted-foreground">
               Response Time: We typically respond to all inquiries within 24 hours. For urgent matters, please mention it in your message and we'll prioritize your request.
