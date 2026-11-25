@@ -13,6 +13,7 @@ import FAQ from "./pages/FAQ";
 import Process from "./pages/Process";
 import LocalBusinesses from "./pages/LocalBusinesses";
 import DigitalBusinesses from "./pages/DigitalBusinesses";
+import ThankYou from "./pages/ThankYou";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/process" element={<Process />} />
             <Route path="/local-businesses" element={<LocalBusinesses />} />
             <Route path="/digital-businesses" element={<DigitalBusinesses />} />
+            <Route path="/thank-you" element={<ThankYou />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
