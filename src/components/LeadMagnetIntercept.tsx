@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { submitToFormSubmit } from "@/lib/formSubmit";
 
 interface LeadMagnetInterceptProps {
   children: React.ReactNode;
@@ -15,26 +16,18 @@ export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterc
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    setSubmitError("");
     
     try {
-      const formData = new FormData(e.currentTarget);
-      const data = Object.fromEntries(formData.entries());
-
-      await fetch("https://formsubmit.co/ajax/jetmerceofficial@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data)
-      });
+      await submitToFormSubmit(new FormData(e.currentTarget));
       setIsSubmitted(true);
     } catch (error) {
-      console.error("Form submission error", error);
+      setSubmitError(error instanceof Error ? error.message : "The form could not be sent. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -94,6 +87,7 @@ export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterc
             <Button type="submit" disabled={isLoading} className="w-full h-12 text-lg">
               {isLoading ? "Sending..." : "Submit & Continue"}
             </Button>
+            {submitError && <p role="alert" className="text-sm text-destructive text-center">{submitError}</p>}
             
             <p className="text-xs text-center text-muted-foreground mt-2">
               Response Time: We typically respond to all inquiries within 24 hours. For urgent matters, please mention it in your message and we'll prioritize your request.

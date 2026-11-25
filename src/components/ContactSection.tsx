@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { submitToFormSubmit } from "@/lib/formSubmit";
 import { 
   MessageCircle, 
   Linkedin, 
@@ -24,21 +25,10 @@ const ContactSection = () => {
     setLoading(true);
     
     try {
-      const formData = new FormData(e.currentTarget);
-      const data = Object.fromEntries(formData.entries());
-
-      await fetch("https://formsubmit.co/ajax/jetmerceofficial@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data)
-      });
-
+      await submitToFormSubmit(new FormData(e.currentTarget));
       setIsSubmitted(true);
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      toast.error(error instanceof Error ? error.message : "The form could not be sent. Please try again.", { duration: 10000 });
     } finally {
       setLoading(false);
     }
