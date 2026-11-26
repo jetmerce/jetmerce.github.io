@@ -51,7 +51,7 @@ const ConversationScroll = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center space-y-4 mb-16 flex flex-col items-center">
           <h2 className="inline-block px-4 py-1.5 rounded-full bg-secondary border border-border/50 shadow-sm text-primary font-mono tracking-widest uppercase text-sm font-bold">A Familiar Story</h2>
-          <h3 className="text-3xl md:text-5xl font-bold text-[#111b21] dark:text-white mt-2">A Real Conversation With a Business Owner Like You</h3>
+          <h3 className="text-3xl md:text-5xl font-bold text-[#111b21] dark:text-white mt-2">Picture This: A Strategy Chat for Your Business</h3>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 items-start">
