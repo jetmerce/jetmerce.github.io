@@ -13,7 +13,8 @@ import {
   Briefcase, 
   Search,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  LoaderCircle
 } from "lucide-react";
 
 const ContactSection = () => {
@@ -96,7 +97,7 @@ const ContactSection = () => {
 
           <div className="relative">
             <div className="absolute -inset-4 bg-primary/5 blur-3xl rounded-full -z-10" />
-            <form action="https://formsubmit.co/jetmerceofficial@gmail.com" method="POST" onSubmit={handleSubmit} className="bg-background border border-border/50 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl space-y-6 md:space-y-8 relative">
+            <form action="https://formsubmit.co/jetmerceofficial@gmail.com" method="POST" onSubmit={handleSubmit} aria-busy={loading} className="bg-background border border-border/50 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl space-y-6 md:space-y-8 relative">
               <input type="hidden" name="_next" value="https://jetmerce.github.io/thank-you/" />
               <input type="hidden" name="_subject" value="Your Enquiry Has Been Received Successfully" />
               <input type="hidden" name="_template" value="table" />
@@ -129,13 +130,23 @@ const ContactSection = () => {
               </div>
 
               <Button type="submit" disabled={loading} className="w-full h-14 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:bg-primary/90 transition-all shadow-xl shadow-primary/20 group">
-                {loading ? "Sending..." : (
+                {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <LoaderCircle className="h-5 w-5 animate-spin" aria-hidden="true" />
+                    <span>Submitting your details…</span>
+                  </span>
+                ) : (
                   <span className="flex items-center justify-center gap-2">
                     Send Me Your Website
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 )}
               </Button>
+              {loading && (
+                <p className="text-xs text-center text-muted-foreground" role="status" aria-live="polite">
+                  Please keep this page open. You’ll continue when your submission is confirmed.
+                </p>
+              )}
               
               <div className="text-center space-y-2">
                 <p className="text-xs text-muted-foreground/60">

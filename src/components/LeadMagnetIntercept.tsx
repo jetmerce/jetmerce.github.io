@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { submitToFormSubmit } from "@/lib/formSubmit";
+import { LoaderCircle } from "lucide-react";
 
 interface LeadMagnetInterceptProps {
   children: React.ReactNode;
@@ -62,6 +63,7 @@ export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterc
             method="POST"
             onSubmit={handleSubmit}
             className="space-y-4"
+            aria-busy={isLoading}
           >
             <input type="hidden" name="_subject" value="Your Enquiry Has Been Received Successfully" />
             <input type="hidden" name="_next" value={successDestination} />
@@ -83,11 +85,18 @@ export const LeadMagnetIntercept = ({ children, externalLink }: LeadMagnetInterc
               <Textarea id="message" name="Message" placeholder="What do you need help with?" required />
             </div>
             <Button type="submit" disabled={isLoading} className="w-full h-12 text-lg">
-              {isLoading ? "Sending…" : "Submit & Continue"}
+              {isLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <LoaderCircle className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  <span>Submitting your details…</span>
+                </span>
+              ) : "Submit & Continue"}
             </Button>
             {submitError && <p role="alert" className="text-sm text-destructive text-center">{submitError}</p>}
-            <p className="text-xs text-center text-muted-foreground mt-2">
-              After FormSubmit confirms your submission, you will continue to the page you selected.
+            <p className="text-xs text-center text-muted-foreground mt-2" role={isLoading ? "status" : undefined} aria-live="polite">
+              {isLoading
+                ? "Please keep this window open. We’ll continue when your submission is confirmed."
+                : "After FormSubmit confirms your submission, you will continue to the page you selected."}
             </p>
             <p className="text-xs text-center text-muted-foreground">
               Response Time: We typically respond to all inquiries within 24 hours. For urgent matters, please mention it in your message and we'll prioritize your request.
