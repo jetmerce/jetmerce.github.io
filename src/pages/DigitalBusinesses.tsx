@@ -94,11 +94,11 @@ const DigitalBusinesses = () => {
     setMeta("keywords", "ecommerce marketing, online store growth, ecommerce conversion optimization, customer retention, ecommerce revenue growth, product page optimization, marketing for ecommerce brands");
     setMeta("og:title", "Grow Your Ecommerce Brand — Jetmerce Has the Strategy & Systems for You", true);
     setMeta("og:description", "From conversion optimization to customer retention, Jetmerce helps ecommerce brands build a scalable, profitable online business. Start with a free call.", true);
-    setMeta("og:url", "https://jetmerce.vibepreview.com/digital-businesses", true);
+    setMeta("og:url", "https://jetmerce.github.io/digital-businesses", true);
     setMeta("twitter:title", "Grow Your Ecommerce Brand — Jetmerce Has the Strategy & Systems for You");
     setMeta("twitter:description", "From conversion optimization to customer retention, Jetmerce helps ecommerce brands build a scalable, profitable online business. Start with a free call.");
     const canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
-    if (canonical) canonical.setAttribute("href", "https://jetmerce.vibepreview.com/digital-businesses");
+    if (canonical) canonical.setAttribute("href", "https://jetmerce.github.io/digital-businesses");
     return () => {
       document.title = "Jetmerce | Digital Marketing for Online Businesses & Local Businesses";
       if (canonical) canonical.setAttribute("href", "/");

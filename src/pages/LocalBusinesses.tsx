@@ -208,11 +208,11 @@ const LocalBusinesses = () => {
     setMeta("keywords", "local business marketing, local SEO, Google Business Profile optimisation, reputation management, lead generation for local businesses, digital marketing for small businesses, appointment setting, Google Ads for local business, business directory listings");
     setMeta("og:title", "Is Your Local Business Hard to Find Online? Let's Fix That — Jetmerce", true);
     setMeta("og:description", "Jetmerce helps local businesses get found on Google, generate more leads, and keep customers coming back. See exactly how we do it, and book a free strategy call.", true);
-    setMeta("og:url", "https://jetmerce.vibepreview.com/local-businesses", true);
+    setMeta("og:url", "https://jetmerce.github.io/local-businesses", true);
     setMeta("twitter:title", "Is Your Local Business Hard to Find Online? Let's Fix That — Jetmerce");
     setMeta("twitter:description", "Jetmerce helps local businesses get found on Google, generate more leads, and keep customers coming back. See exactly how we do it, and book a free strategy call.");
     const canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
-    if (canonical) canonical.setAttribute("href", "https://jetmerce.vibepreview.com/local-businesses");
+    if (canonical) canonical.setAttribute("href", "https://jetmerce.github.io/local-businesses");
     return () => {
       document.title = "Jetmerce | Digital Marketing for Online Businesses & Local Businesses";
       if (canonical) canonical.setAttribute("href", "/");

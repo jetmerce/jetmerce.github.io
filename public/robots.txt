@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://jetmerce.vibepreview.com/sitemap.xml
+Sitemap: https://jetmerce.github.io/sitemap.xml
