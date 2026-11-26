@@ -35,7 +35,7 @@ function setCanonical(html, canonical) {
 }
 
 function renderDocument(template, route, page, isNotFound = false) {
-  const url = `${origin}${route === "/" ? "/" : route}`;
+  const url = `${origin}${route === "/" ? "/" : `${route}/`}`;
   let html = template.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(page.title)}</title>`);
   html = setMeta(html, "name", "description", page.description);
   html = setMeta(html, "name", "keywords", page.keywords || "");
@@ -59,7 +59,7 @@ function renderDocument(template, route, page, isNotFound = false) {
 
   const navigation = Object.entries(metadata)
     .filter(([href]) => href !== "/thank-you")
-    .map(([href, item]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(item.title.replace(/^Jetmerce\s*\|\s*/, ""))}</a></li>`)
+    .map(([href, item]) => `<li><a href="${escapeHtml(href === "/" ? "/" : `${href}/`)}">${escapeHtml(item.title.replace(/^Jetmerce\s*\|\s*/, ""))}</a></li>`)
     .join("\n      ");
   const body = `<main id="seo-content">
     <h1>${escapeHtml(page.heading)}</h1>

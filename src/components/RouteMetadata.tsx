@@ -25,7 +25,7 @@ const RouteMetadata = () => {
     const isNotFound = !page;
     const title = page?.title ?? "404 Page Not Found | Jetmerce";
     const description = page?.description ?? "The page you requested could not be found. Visit Jetmerce to explore our services and resources.";
-    const canonical = `${SITE_ORIGIN}${route === "/" ? "/" : route}`;
+    const canonical = `${SITE_ORIGIN}${route === "/" ? "/" : `${route}/`}`;
 
     document.title = title;
     setMeta("name", "description", description);
