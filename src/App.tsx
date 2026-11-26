@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import RouteMetadata from "@/components/RouteMetadata";
 import Index from "./pages/Index";
 import Systems from "./pages/Systems";
 import Work from "./pages/Work";
@@ -25,6 +26,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <RouteMetadata />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/systems" element={<Systems />} />

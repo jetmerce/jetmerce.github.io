@@ -195,30 +195,6 @@ const ServiceItem = ({ service, idx }: { service: typeof services[0]; idx: numbe
 
 /* ========== PAGE ========== */
 const LocalBusinesses = () => {
-  // SEO meta tags
-  useEffect(() => {
-    document.title = "Jetmerce | Digital Marketing for Local Businesses — Get Found, Grow & Keep Customers";
-    const setMeta = (name: string, content: string, prop = false) => {
-      const selector = prop ? `meta[property="${name}"]` : `meta[name="${name}"]`;
-      let el = document.querySelector(selector) as HTMLMetaElement | null;
-      if (!el) { el = document.createElement("meta"); prop ? el.setAttribute("property", name) : el.setAttribute("name", name); document.head.appendChild(el); }
-      el.setAttribute("content", content);
-    };
-    setMeta("description", "Is your local business invisible online? Jetmerce helps local businesses get found on Google, manage their reputation, generate leads, and grow with smart digital marketing. Book a free strategy call today.");
-    setMeta("keywords", "local business marketing, local SEO, Google Business Profile optimisation, reputation management, lead generation for local businesses, digital marketing for small businesses, appointment setting, Google Ads for local business, business directory listings");
-    setMeta("og:title", "Is Your Local Business Hard to Find Online? Let's Fix That — Jetmerce", true);
-    setMeta("og:description", "Jetmerce helps local businesses get found on Google, generate more leads, and keep customers coming back. See exactly how we do it, and book a free strategy call.", true);
-    setMeta("og:url", "https://jetmerce.github.io/local-businesses", true);
-    setMeta("twitter:title", "Is Your Local Business Hard to Find Online? Let's Fix That — Jetmerce");
-    setMeta("twitter:description", "Jetmerce helps local businesses get found on Google, generate more leads, and keep customers coming back. See exactly how we do it, and book a free strategy call.");
-    const canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
-    if (canonical) canonical.setAttribute("href", "https://jetmerce.github.io/local-businesses");
-    return () => {
-      document.title = "Jetmerce | Digital Marketing for Online Businesses & Local Businesses";
-      if (canonical) canonical.setAttribute("href", "/");
-    };
-  }, []);
-
   const hero = useFadeIn(0.1);
   const pains = useFadeIn(0.1);
   const servicesSection = useFadeIn(0.1);
