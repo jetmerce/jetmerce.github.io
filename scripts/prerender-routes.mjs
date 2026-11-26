@@ -67,7 +67,7 @@ function renderDocument(template, route, page, isNotFound = false) {
     ${isNotFound ? '<p>The page you requested could not be found.</p>' : ""}
     <nav aria-label="Jetmerce pages"><h2>Explore Jetmerce</h2><ul>${navigation}</ul></nav>
   </main>`;
-  html = html.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+  html = html.replace('<div id="root"></div>', `<noscript>${body}</noscript><div id="root"></div>`);
   return html;
 }
 
