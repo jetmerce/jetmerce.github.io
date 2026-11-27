@@ -26,18 +26,15 @@ export async function submitToFormSubmit(formData: FormData): Promise<void> {
 
   const submissionData = Object.fromEntries(formData.entries());
   delete submissionData._next;
-  const body = new URLSearchParams();
-  for (const [name, value] of Object.entries(submissionData)) {
-    body.set(name, String(value));
-  }
 
   try {
     response = await fetch(FORMSUBMIT_AJAX_ENDPOINT, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body,
+      body: JSON.stringify(submissionData),
     });
   } catch {
     throw new Error("Could not reach the email form service. Check your connection and try again.");

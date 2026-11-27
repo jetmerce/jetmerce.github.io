@@ -17,7 +17,7 @@ describe("submitToFormSubmit", () => {
     await expect(submitToFormSubmit(new FormData())).resolves.toBeUndefined();
   });
 
-  it("uses a URL-encoded request without `_next` or a JSON preflight header", async () => {
+  it("uses FormSubmit's JSON AJAX format and omits `_next`", async () => {
     const fetchMock = vi.fn().mockResolvedValue(
       new Response(JSON.stringify({ success: "true", message: "Submitted" }), {
         status: 200,
@@ -34,9 +34,11 @@ describe("submitToFormSubmit", () => {
 
     const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit];
     expect(url).toBe("https://formsubmit.co/ajax/jetmerceofficial@gmail.com");
-    expect(options.headers).toEqual({ Accept: "application/json" });
-    expect(options.body).toBeInstanceOf(URLSearchParams);
-    expect((options.body as URLSearchParams).toString()).toBe("email=visitor%40example.com");
+    expect(options.headers).toEqual({
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    });
+    expect(options.body).toBe(JSON.stringify({ email: "visitor@example.com" }));
   });
 
   it("explains how to handle an activation-required response", async () => {
