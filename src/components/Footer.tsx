@@ -44,9 +44,20 @@ const Footer = () => {
             <span className="font-bold tracking-tight">JETMERCE</span>
           </div>
           
-          <p className="text-muted-foreground text-sm text-center md:text-left">
-            © {new Date().getFullYear()} Jetmerce. All rights reserved. Built by Joshua Oluwatobiloba Bamikole.
-          </p>
+          <div className="space-y-2 text-center md:text-left">
+            <p className="text-muted-foreground text-sm">
+              © 2026–2027 Jetmerce. All rights reserved. Founded by{" "}
+              <a href="https://www.linkedin.com/in/tobiloba-bamikole-26b5b736b/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-primary">
+                Joshua Oluwatobiloba Bamikole
+              </a>.
+            </p>
+            <p className="text-muted-foreground text-sm">
+              We are committed to ensuring digital accessibility for everyone. If you experience any difficulty accessing any part of this website, please contact us at{" "}
+              <a href="mailto:jetmerceofficial@gmail.com" className="underline underline-offset-4 hover:text-primary">
+                jetmerceofficial@gmail.com
+              </a>.
+            </p>
+          </div>
           
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             {/* Removed Terms and Privacy */}
